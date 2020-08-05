@@ -35,9 +35,10 @@ def main():
     bag = rosbag.Bag(args.bag_file, "r")
     bridge = CvBridge()
     file_count = 0
-    pu.db
     flag = 0
     count = 0
+    #read_messages unfortunately does not give you the msg-topics at the same time, you have to iterate to get the next messages, so thats why this is spaghetti
+    #This part gets the image data and then odom data on the next pass and saves everything in a format for the topological map stuff
     for topic, msg, t in bag.read_messages(topics=[args.odom_topic, args.image_topic]):
         if topic != args.odom_topic:
             flag = 1#Get next odom
